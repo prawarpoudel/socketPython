@@ -8,12 +8,12 @@ def function(host,port):
 	s.close()
 
 if __name__=='__main__':
-	if len(sys.argv)==1:
-		host = str(socket.gethostbyname(socket.gethostbyname()))
-	elif len(sys.argv)==2:
+	print("attempting connection")
+	host = str(socket.gethostbyname(socket.gethostname()))
+	port = 12345
+	if len(sys.argv)==2:
 		host = sys.argv[1]
-		port = 12345
-	else:
+	elif len(sys.argv)>2:
 		host = sys.argv[1]
 		port = sys.argv[2]
 	

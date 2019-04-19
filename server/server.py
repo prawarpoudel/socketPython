@@ -1,36 +1,34 @@
 import sys
 import socket
 
-def function(ipaddress,port,message="Thank you for connecting"):
+def function(port,message="Thank you for connecting"):
 	s=  socket.socket()
 	print(f"socket created successfully")
 	
-	s.bind('',port)
+	s.bind(('',port))
 	print(f"socker bound successfully to port {port}")
 	s.listen(5)
 	print(f"..listening")
 	
 	while True:
-		c,addr = s.accpet()
-		print("..got connection from {addr}")
-		c.send(message)
+		c,addr = s.accept()
+		print(f"..got connection from {addr}")
+		c.send(message.encode())
 		c.close()
+		if(input("listen again(y/n)?")=='y'):
+			continue
+		else:
+			return
+
 
 if __name__=="__main__":
+	port = 12345
 	if len(sys.argv)==1:
-		ipaddress = str(gethostbyname(gethostbyname()))
-		port = 12345
-		function(ipaddress,port)
+		function(port)
 	elif len(sys.argv)==2:
-		ipaddress = sys.argv[1]
-		port = 12345
-		function(ipaddress,host)
-	elif len(sys.argv)==3:
-		ipaddress = sys.argv[1]
-		port = sys.argv[2]
-		function(ipaddress,host)
+		port = int(sys.argv[1])
+		function(port)
 	else:
-		ipaddress = sys.argv[1]
-		port = sys.argv[2]
-		message = sys.argv[3]
-		function(ipaddress,port,message)
+		port = int(sys.argv[1])
+		message = sys.argv[2]
+		function(port,message)
